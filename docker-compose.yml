@@ -1,0 +1,22 @@
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "3000:3000"
+    volumes:
+      - /app/node_modules
+      # map pwd outside container to app dir inside container
+      - .:/app
+  tests:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    volumes:
+      - /app/node_modules
+      # changes to the local files will be reflected in the container
+      # for example changing source or tests
+      - .:/app
+    command: ["npm", "run", "test"]

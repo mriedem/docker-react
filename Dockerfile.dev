@@ -1,0 +1,20 @@
+# Start with a base image
+FROM node:alpine
+
+# Setup working directory in the container
+WORKDIR '/app'
+
+# Copy dependencies file
+COPY package.json .
+
+# Install dependencies
+RUN npm install
+
+# Copy source code from build dir
+# Note: could omit this if we're using
+# volumes but it's not a bad idea to
+# leave this if we re-use this Dockerfile
+COPY ./ ./
+
+# Start dev server
+CMD ["npm", "run", "start"]
