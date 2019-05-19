@@ -13,3 +13,17 @@ before_install:
 # tell travis how to run our tests (nix menu)
 script:
   - docker run mriedem/docker-react npm run test -- --coverage
+
+deploy:
+  provider: elasticbeanstalk
+  region: "us-east-2"
+  app: "docker-react"
+  env: "DockerReact-env"
+  bucket_name: "elasticbeanstalk-us-east-2-191463116081"
+  bucket_path: "docker-react"
+  # only deploy when master branch gets new code
+  on:
+    branch: master
+  access_key_id: $AWS_ACCESS_KEY
+  secure_access_key:
+    secure: "$AWS_SECRET_KEY"
