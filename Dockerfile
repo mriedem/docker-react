@@ -13,6 +13,8 @@ RUN npm run build
 
 # Run phase
 FROM nginx
+# Expose port 80 for EBS to do port mapping
+EXPOSE 80
 COPY --from=builder /app/build /usr/share/nginx/html
 # Don't need to manually start nginx since the
 # default behavior in the nginx image container
