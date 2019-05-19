@@ -1,0 +1,15 @@
+# run with superuser to install dependencies
+sudo: required
+
+# list dependencies to automatically install
+services:
+  - docker
+
+# pre-test stuff (build the image)
+before_install:
+  # create the container image with a tag for reference
+  - docker build -t mriedem/docker-react -f Dockerfile.dev .
+
+# tell travis how to run our tests (nix menu)
+script:
+  - docker run mriedem/docker-react npm run test -- --coverage
